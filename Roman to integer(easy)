@@ -1,0 +1,23 @@
+class Solution {
+public:
+   int romanToInt(string s) {
+	int mp[256];
+        mp['I'] = 1;
+        mp['V'] = 5;
+        mp['X'] = 10;
+        mp['L'] = 50;
+        mp['C'] = 100;
+        mp['D'] = 500;
+        mp['M'] = 1000;
+	int sum = 0;
+	for (int i = 0;i<s.size();i++) {
+		int num = mp[s[i]];
+		if (i+1<s.size()&&num<mp[s[i+1]])
+			sum = sum -num;
+		else
+			sum = sum + num;
+	}
+	return sum;}
+};
+static int x=[](){std::ios::sync_with_stdio(false);cin.tie(0);return 0;}();
+//数组的搜索过程要比用unordered_map搜索key的值更快，在遍历中尽量少用判断语句拖慢速度
