@@ -1,0 +1,43 @@
+ vector<vector<int>> fourSum(vector<int>& nums, int target) {
+	vector<vector<int>>result;
+	int left, right;
+	sort(begin(nums), end(nums));
+	if (nums.size() == 4 && nums[0] + nums[1] + nums[2] + nums[3] == target)
+	{
+		result.push_back(nums);
+		return result;
+	}
+	for (int i = 0; i < nums.size(); i++) {
+          while(nums[i]==nums[i-1]&&i>0)i++;
+		for (int j = i + 1; j < nums.size(); j++) {	
+            while(nums[j]==nums[j-1]&&j-1>i)j++;
+		    int left = j + 1;
+			int right = nums.size() - 1;
+			while (left < right)
+			{
+				if (nums[i] + nums[j] + nums[left] + nums[right] == target)
+				{
+					vector<int> res = { nums[i],nums[j],nums[left],nums[right] };
+					result.push_back(res);
+					left++;
+					while(nums[left] == nums[left - 1])left++;
+					right--;
+					while(nums[right] == nums[right + 1])right--;
+					continue;
+				}
+				if (nums[i] + nums[j] + nums[left] + nums[right] > target)
+				{
+					right--;
+					continue;
+				}
+				if (nums[i] + nums[j] + nums[left] + nums[right] < target)
+				{
+					left++;
+					continue;
+				}
+			}
+		}
+	}
+	return result;
+}
+//这题目本身不难但是我花了比较多的时间，还是自己做题目思路不清晰，以后做算法先把各种情况考虑到了，在进行写，保证效率。
