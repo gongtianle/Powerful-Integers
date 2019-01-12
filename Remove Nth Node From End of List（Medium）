@@ -1,0 +1,27 @@
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* node=new ListNode(-1);
+        node->next=head;
+        ListNode*Node=node;
+        int i=0;
+        while(Node!=NULL)
+        {
+            i++;
+            Node=Node->next;
+        }
+        Node=node;
+        for(int j=0;j<i-n-1;j++)
+        {
+            Node=Node->next;
+        }
+        if(n==1)
+        {
+            Node->next=NULL;
+            node=node->next;
+            return node;
+        }
+        Node->next=Node->next->next;
+        node=node->next;
+        return node;
+    }
+    static int x = []() {std::ios::sync_with_stdio(false); cin.tie(0); return 0; }();
+    //做指针的时候要头脑清晰，思路很重要，并且要记住指针进行内存的清空
