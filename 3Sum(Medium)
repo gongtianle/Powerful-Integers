@@ -1,0 +1,79 @@
+//Method 1
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+	vector<vector<int>> res;
+	sort(begin(nums), end(nums));
+	int m, n = nums.size() - 1;
+	for (int i = 0; i < nums.size(); i++) {
+		m = i + 1;
+		n = nums.size() - 1;
+		if (i != 0&&nums[i]==nums[i-1])
+		{
+			continue;
+		}
+		while (m < n) {
+			if (nums[m] + nums[n] == -nums[i]) {
+				vector<int> result = { nums[i],nums[m],nums[n] };
+				res.push_back(result); 
+				m++;
+				n--;
+				while(nums[n] == nums[n + 1])
+					n--;
+				while(nums[m] == nums[m - 1])
+					m++;
+			}
+			if (nums[m] + nums[n] > -nums[i])
+			{
+				n--;
+			}
+			if (nums[m] + nums[n] < -nums[i])
+			{
+				m++;
+			}
+		}
+	}
+	return res;
+}
+};
+static int x = []() {std::ios::sync_with_stdio(false); cin.tie(0); return 0; }();
+//Method 2
+ vector<vector<int>> threeSum(vector<int>& nums) 
+{
+unordered_map<int, int> nums_map;
+for (int i = 0; i < nums.size(); i++)
+  nums_map[nums[i]] ++;
+vector<vector<int>> result;
+if (nums_map[0] >= 3)
+            result.push_back({ 0, 0, 0 });
+sort(nums.begin(), nums.end());
+auto iter = unique(nums.begin(), nums.end());
+ nums.erase(iter, nums.end());
+for (auto& i : nums) cout << i << endl;
+vector<int> neq;
+ector<int> pos;
+copy_if(nums.begin(), nums.end(), back_inserter(neq), [](int i) { return i < 0; });
+copy_if(nums.begin(), nums.end(), back_inserter(pos), [](int i) { return i >= 0; });
+for (auto& i : neq)
+{
+ for (auto& j : pos)
+{
+int dif = 0 - i - j;
+ if (nums_map.count(dif))
+{
+if ((dif == i || dif == j) && nums_map[dif] >= 2)
+{
+result.push_back({ i, j, dif });
+}
+                    if (dif < i || dif > j)
+                   {
+                       result.push_back({ i, j, dif });
+                     }
+      }
+ }
+
+        }
+
+        return result;
+
+    }
+
