@@ -1,0 +1,16 @@
+ ListNode* swapPairs(ListNode* head) {
+        ListNode*Node=new ListNode(-1);
+        Node->next=head;
+        ListNode*node=Node;
+        while(node!=nullptr){
+        ListNode*p=node->next;
+        if(p==nullptr||p->next==nullptr)
+        {
+          Node=Node->next;
+          return  Node;
+        }
+        ListNode*k=p->next;ListNode*g=k->next;
+        node->next=k;k->next=p;p->next=g;
+        node=p;
+        }
+    }
