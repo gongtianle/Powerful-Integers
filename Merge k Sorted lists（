@@ -1,0 +1,63 @@
+ ListNode* mergeKLists(vector<ListNode*>& lists) {
+        vector<int> list_map;
+        for(int i=0;i<lists.size();i++){
+            ListNode*node=lists[i];
+            while(node!=nullptr){
+            list_map.push_back(node->val);
+            node=node->next;}
+        }
+     sort(begin(list_map),end(list_map));
+     ListNode*head=new ListNode(-1);
+     ListNode*node=head;
+    for(auto x=list_map.begin();x!=list_map.end();x++){
+            ListNode*Node=(ListNode*)malloc(sizeof(ListNode));
+            Node->val=(*x);
+            Node->next=nullptr;
+            head->next=Node;
+            head=Node;
+    }
+    ListNode*ret=head->next;
+    delete head;
+    return ret;
+    }
+    //这道题目我个人认为拍个顺序就可以完成，看了别人的答案感觉都挺复杂的；
+    Method 2
+    ListNode* mergeKLists(vector<ListNode*>& lists) 
+
+    {
+
+        priority_queue<pair<int, ListNode*>, deque<pair<int, ListNode*>>, greater<pair<int, ListNode*>>> min_heap;
+
+        for (ListNode* l : lists) 
+
+        {
+
+            if (l) min_heap.push(make_pair(l->val, l));
+
+        }
+
+        ListNode *head = new ListNode(-1);
+
+        ListNode *cur = head;
+
+        while (!min_heap.empty()) 
+
+        {
+
+            cur->next = min_heap.top().second;
+
+            cur = cur->next;
+
+            min_heap.pop();
+
+            if (cur->next) min_heap.push(make_pair(cur->next->val, cur->next));
+
+        }
+
+        ListNode *ret = head->next;
+
+        delete head;
+
+        return ret;
+
+    }
