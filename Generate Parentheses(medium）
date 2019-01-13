@@ -1,0 +1,69 @@
+//method 1
+struct parentheses{
+    string s;
+    int left;
+    int right;
+};
+class Solution {
+public:
+    vector<parentheses> reParent(vector<parentheses> res) {
+	for (int i = 0; i < res.size(); i++) {
+		while (res[i].left != 0 || res[i].right != 0)
+		{
+			if (res[i].left == res[i].right)
+			{
+				res[i].s.push_back('(');
+				res[i].left--;
+				continue;
+			}
+			if (res[i].left <res[i].right&&res[i].left!=0)
+			{
+				parentheses another;
+				another = res[i];
+				another.s.push_back(')');
+				another.right--;
+				res.push_back(another);
+				res[i].s.push_back('(');
+				res[i].left--;
+				continue;
+			}
+			if (res[i].left == 0) {
+				for (int  j = 0; j < res[i].right; j++)
+				{
+					res[i].s.push_back(')');
+				}
+				break;
+			}
+		}
+	}
+	return res;
+}
+vector<string> generateParenthesis(int n) {
+	vector<parentheses> res;
+	parentheses result;
+	result.s = "";
+	result.left = n;
+	result.right = n;
+	res.push_back(result);
+	res = reParent(res);
+	vector<string> str;
+	for_each(begin(res), end(res), [&str](parentheses x) {str.push_back(x.s); });
+	return str;
+}
+};
+//上述方法不错，内存消耗过多，应该采用递归的方法。
+vector<string> generateParenthesis(int n) {
+	
+	vector<string> s;
+    reParent(s,"",n,0);
+    return s;
+}
+private:
+     void reParent(vector<string>&i,string s,int left,int right){
+     if(left==0&&right==0){
+         i.push_back(s);
+         return;
+     }
+     if(left>0)reParent(i,s+'(',left-1,right+1);
+     if(right>0)reParent(i,s+')',left,right-1);
+ }
