@@ -1,0 +1,14 @@
+ //method 1
+ int subarraysDivByK(vector<int>& A, int K) {
+        int pre_sum=0,res=0;
+        unordered_map<int,int> dic={{0,1}};
+        for(int a:A){
+            pre_sum=(pre_sum+a)%K;
+            if(pre_sum<0) pre_sum+=K;
+            res+=dic[pre_sum];
+            dic[pre_sum]++;
+        }
+        return res;
+    }
+    //还有遍历整个数组的方法，这个方法所用的方式，是通过累加的方式，去除目标整数，然后判断余数是否有变化，当没有变化的时候说明该数可以整数目标整数，
+    //当有变化的时候要继续增加判断余数，然后当和小于零的时候要分情况讨论。
