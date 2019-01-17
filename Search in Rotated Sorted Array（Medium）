@@ -1,0 +1,38 @@
+   int search(vector<int>& nums, int target) {
+	int min = 0; int max = nums.size();
+	int index1=0;
+	int index2 = 0;
+	if (nums.empty())
+		return -1;
+	for (int i = 0;  i< nums.size()-1; i++)
+	{
+		if (nums[i] > nums[i + 1])
+		{
+			index1 = i-0+1;
+			index2 = nums.size() - i-1;
+			break;
+		}
+	}
+	vector<int> x = nums;
+	sort(begin(nums), end(nums));
+	while (min < max) {
+		if (target < nums[(max + min) / 2])
+			max = (max + min) / 2;
+		else if (target > nums[(max + min) / 2])
+			min = (max + min) / 2;
+		else {
+			if (target<=x[index1-1]&&target>=x[0])
+			{
+				return (max + min) / 2-index2;
+			}
+			else
+			{
+				return (max + min) / 2 + index1;
+			}
+		}
+			
+		if (min+1== max&&nums[max]!=target&&nums[min]!=target)
+			break;
+	}
+	return -1;
+}
