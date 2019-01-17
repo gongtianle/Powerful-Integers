@@ -1,0 +1,36 @@
+static int x = []() {std::ios::sync_with_stdio(false); cin.tie(0); return 0; }();
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+    unordered_map<char,int> board_map1;
+    unordered_map<char,int> board_map2;
+    for(int i=0;i<board.size();i++)
+    {
+        for(int j=0;j<board.size();j++)
+        {
+            if(board_map1.count(board[i][j])>=1||board_map2.count(board[j][i])>=1)
+                return false;
+            if(board[i][j]!='.')
+                board_map1[board[i][j]]++;
+            if(board[j][i]!='.')
+                board_map2[board[j][i]]++;
+        }
+        board_map1.clear();
+        board_map2.clear();
+    }
+    for(int i=0;i<board.size();i+=3){
+        for(int j=0;j<board.size();j+=3){
+            for(int m=0;m<3;m++){
+                for(int n=0;n<3;n++){
+                    if(board_map1.count(board[i+m][j+n])>=1)
+                        return false;
+                    if(board[i+m][j+n]!='.')
+                        board_map1[board[i+m][j+n]]++;
+                }
+            }
+            board_map1.clear();
+        }
+    }
+  return true;
+    }
+};
