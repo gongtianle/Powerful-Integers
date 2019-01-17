@@ -1,0 +1,46 @@
+vector<int> searchRange(vector<int>& nums, int target) {
+	int num = search(nums, target);
+	vector<int> x; int left=num, right=num;
+	if (num == -1)
+		return { -1,-1 };
+	while (left >= 0) {
+		left--;
+		if (left<0||nums[left] != target)
+		{
+			left++;
+			break;
+		}
+	}
+	while (right<nums.size())
+	{
+		right++;
+		if (right==nums.size()||nums[right] != target)
+		{
+			right--;
+			break;
+		}	
+	}
+	x = { left,right };
+	return x;
+}
+private:
+    int search(vector<int>nums, int target) {
+	int max = nums.size(); int min = 0;
+        if(nums.empty())
+            return -1;
+	while (min <=max) {
+		int def = (max + min) / 2;
+        if(def<0||def>=nums.size())return -1;
+		if (nums[def] > target) {
+			max = def-1;
+		}
+		if(nums[def] < target) {
+			min = def+1;
+		}
+		if (nums[def]==target)
+		{
+			return def;
+		}
+	}
+	return -1;
+}
