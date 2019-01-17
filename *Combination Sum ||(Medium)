@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(begin(candidates),end(candidates));
+        vector<int> vec;
+        refun(candidates,target,vec,0);
+        return res;   
+    }
+    void refun(vector<int> candidates,int target,vector<int>&vec,int index){
+        if(target==0)
+        {
+            res.push_back(vec);
+            return;
+        }
+        if(target<0){
+            return;
+        }
+        for(int i=index;i<candidates.size();i++)
+        {
+            if(i>index&&candidates[i]==candidates[i-1])
+            {
+                continue;
+            }
+            if(candidates[i]>target)
+            {
+                break;
+            }
+            vec.push_back(candidates[i]);
+            refun(candidates,target-candidates[i],vec,i+1);
+            vec.pop_back();
+        }
+    }
+};
+//很巧妙进行一个简单的判断就可以。
