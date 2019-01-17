@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> result;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<int>res;
+        refun(candidates,res,target,0);
+        return result;
+    }
+    void refun(vector<int>&x,vector<int>&vec,int target,int index){
+        if(target==0)
+        { 
+            result.push_back(vec);
+            return;
+        }
+        if(target<0)
+            return;
+        for(int i=index;i<x.size();i++){
+            if(x[i]>target)
+                break;
+            vec.push_back(x[i]);
+            refun(x,vec,target-x[i],i);
+            vec.pop_back();
+        }
+    }
+};
+//采用DFS算法进行回溯，简而言之就是递归，进行寻找，
+//本质上的步骤为几个特点，保存当前步骤，如果是一个解就输出；
+//维护状态，使搜索路径(含子路径)尽量不重复。必要时，应该对不可能为解的部分锦绣柠剪枝
+//主要运用在搜索最优解的领域
