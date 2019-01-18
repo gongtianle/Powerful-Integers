@@ -1,0 +1,22 @@
+vector<vector<int>> res;
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<int>x;
+        ReArray(x,nums.size(),nums);
+        return res;
+    }
+    void ReArray(vector<int>&vec,int index,vector<int>nums)
+    {
+     if(index==0){
+         res.push_back(vec);
+         return;
+     }
+        vector<int>::iterator iter=nums.begin();
+      for(int i=0;i<nums.size();i++){
+          vec.push_back(*(iter+i));
+          int x=*(iter+i);
+          nums.erase((iter+i));
+          ReArray(vec,index-1,nums);
+          nums.insert(nums.begin()+i,x);
+          vec.pop_back();
+      }
+    }
