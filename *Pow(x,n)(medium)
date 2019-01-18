@@ -1,0 +1,14 @@
+double myPow(double x, int n) {
+        if(x == 0 ) return n == 1 ? 1.0 : 0.0;
+        int sign = n > 0 ? 1 : -1;
+        if(n == INT_MIN) return x == 1.0 || x == -1.0 ? 1.0 : 0.0; // 没有这一句无法通过
+        x = pow(x, sign * n);
+        return sign > 0 ? x : 1.0/x;
+    }
+    
+    double pow(double x, long n){
+        if(n == 1) return x;
+        if(n == 0) return 1;
+        double tmp = pow(x, n/2);
+        return  tmp * tmp * (n % 2 == 1? x : 1);
+    }
