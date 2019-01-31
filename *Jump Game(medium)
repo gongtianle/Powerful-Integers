@@ -1,0 +1,12 @@
+ bool canJump(vector<int>& nums) 
+    {
+        int m = 0;
+        for (uint i = 0; i < nums.size(); ++i)
+        {
+            if (i > m) return false;
+
+            if (m < i + nums[i]) m = i + nums[i];
+        }
+        return true;
+    }
+    //思维，把前面的的数字相机加以来要大于该比较的索引，才可以跳跃下去
