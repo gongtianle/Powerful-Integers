@@ -1,0 +1,76 @@
+vector<int> asteroidCollision(vector<int>& asteroids) {
+        vector<int> res;
+        for (int as : asteroids) {
+            if (res.size() == 0 || as >= 0) {
+                res.push_back(as);
+                continue;
+            } 
+            bool save = true;
+            while(res.back() > 0 && as < 0) {
+                if (res.back() > abs(as)) {
+                    save = false;
+                    break;
+                } else if (res.back()+as == 0) {
+                    res.pop_back();
+                    save = false;
+                    break;
+                } else {
+                    res.pop_back();
+                }
+            }
+            if (save) res.push_back(as);
+        }
+ //
+ class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+       vector<int> result;
+        while(!asteroids.empty())
+        {     
+            if(result.empty())
+            {
+            result.push_back(asteroids[0]);
+            asteroids.erase(asteroids.begin());
+             }
+            if(asteroids.empty())
+                break;
+            int b=asteroids[0];
+         if(b>0)
+         {
+             result.push_back(b);
+             asteroids.erase(asteroids.begin());
+         }
+         else{
+        for(int i=result.size()-1;i>=0;i--)
+        {
+            if(b*(*(result.begin()+i))<0)
+               {
+                   if(abs(b)>abs(*(result.begin()+i)))
+                       result.pop_back();
+                   else if(abs(b)<abs(*(result.begin()+i)))
+                   {
+                       asteroids.erase(asteroids.begin());
+                       break;
+                   }
+                   else{
+                       result.pop_back();
+                       asteroids.erase(asteroids.begin());
+                       break;
+                   }
+               }
+            else
+            {
+                result.push_back(b);
+                asteroids.erase(asteroids.begin());
+                break;
+            }
+            if(i==0)
+            {result.push_back(b);
+            asteroids.erase(asteroids.begin());}
+        }
+        }
+      }
+        return result;
+    }
+};
+//在确定程序思路后尽量简化整体的循环等操作次数，从而减少其运行时间。
